@@ -11,17 +11,26 @@ export default class Pawn extends Piece {
 
     public getAvailableMoves(board: Board) {
         const piece = board.findPiece(this);
+        let moves = new Array(0);
         if (this.player === Player.WHITE) {
             if (board.getPiece(Square.at(piece.row + 1, piece.col)) === undefined) {
                 const oneSquareUp = Square.at(piece.row + 1, piece.col);
-                return [oneSquareUp];
+                moves.push(oneSquareUp);
+            }
+            if (piece.row === 1 && board.getPiece(Square.at(piece.row + 2, piece.col)) === undefined) {
+                const twoSquaresUp = Square.at(piece.row + 2, piece.col);
+                moves.push(twoSquaresUp);
             }
         } else {
             if (board.getPiece(Square.at(piece.row - 1, piece.col)) === undefined) {
-                const oneSquareUp = Square.at(piece.row - 1, piece.col);
-                return [oneSquareUp];
+                const oneSquareDown = Square.at(piece.row - 1, piece.col);
+                moves.push(oneSquareDown);
+            }
+            if (piece.row === 6 && board.getPiece(Square.at(piece.row - 2, piece.col)) === undefined) {
+                const twoSquaresDown = Square.at(piece.row - 2, piece.col);
+                moves.push(twoSquaresDown);
             }
         }
-        return new Array(0);
+        return moves;
     }
 }
